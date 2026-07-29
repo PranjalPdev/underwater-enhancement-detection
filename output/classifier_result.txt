@@ -1,0 +1,3 @@
+image=000019.jpg
+label=turbid
+class_index=2
