@@ -15,32 +15,34 @@ The system operates in a modular 3-stage pipeline:
                                  │
                                  ▼
                   ┌───────────────────────────────┐
-                  │ Stage 1: Quality Classifier   │  (TensorFlow / EfficientNet)
+                  │ Stage 1: Quality Classifier   │  (EfficientNetB0)
                   └──────────────┬────────────────┘
                                  │
                         ┌────────┼────────┐
                         │        │        │
                         ▼        ▼        ▼
-                    low_light  turbid   good
+                    low-light  turbid   good
                         │        │        │
                         ▼        ▼        │
                    ┌────────┐ ┌──────┐    │
-                   │WaterNet│ │UWCNN │    │ (Stage 2: PyTorch Enhancement at Native Res)
+                   │WaterNet│ │UWCNN │    │ 
                    └────┬───┘ └──┬───┘    │
                         │        │        │
                         └────────┴───┬────┘
                                      │
                                      ▼
-                  ┌───────────────────────────────┐
-                  │ Stage 3: Object Detection     │  (Ultralytics YOLOv8 on URPC2020)
-                  └───────────────────────────────┘
+                    ┌───────────────────────────────┐
+                    │ Stage 3: Object Detection     │  (Ultralytics YOLOv8 on URPC2020)
+                    └───────────────────────────────┘
 ```
 ### 🎯 Research Objective
 Underwater vision systems face severe environmental degradation due to light attenuation, scatter, turbidity, and color absorption, which significantly decrease the accuracy of object detection algorithms.
+
 The primary objective of this project is to build an intelligent pre-processing and detection framework that:
-Automatically identifies specific image degradation types (low_light, turbid, or clear good).
-Dynamically applies targeted image restoration (WaterNet for exposure correction or UWCNN for color-cast dehazing) while preserving 100% native image resolution.
-Feeds the restored frame into a custom YOLOv8 detector to significantly improve detection confidence for marine species (holothurian, echinus, starfish, and scallops).
+
+**>**Automatically identifies specific image degradation types (low_light, turbid, or clear good).
+**>**Dynamically applies targeted image restoration (WaterNet for exposure correction or UWCNN for color-cast dehazing) while preserving 100% native image resolution.
+**>**Feeds the restored frame into a custom YOLOv8 detector to significantly improve detection confidence for marine species (holothurian, echinus, starfish, and scallops).
 
 ### 🔬 Methodology
 1. **Stage 1: Quality Classification**
@@ -49,11 +51,14 @@ Function: Analyzes raw underwater frames and categorizes them into low_light, tu
 
 2. **Stage 2: Dynamic Image Enhancement**
 Low-Light Routing (WaterNet): A 5-layer convolutional network optimized on the EUVP dataset to adjust exposure, lift shadow details, and increase contrast.
-Turbidity Routing (UWCNN): A 10-layer dense residual architecture trained on the UWCNN dataset to correct heavy green/blue color casts, remove haze, and restore edge sharpness.
+
+Turbidity Routing (UWCNN): A 10-layer dense residual architecture trained on the UWCNN dataset to correct heavy green/blue color casts, remove haze, 
+and restore edge sharpness.
+
 Native Resolution Inference: Executed directly on full-resolution image tensors to eliminate downsampling artifacts.
 Clear Image Bypass: Images classified as good bypass enhancement to prevent unnecessary color distortion.
 
-3. **Stage 3: Marine Object Detection**
+4. **Stage 3: Marine Object Detection**
 Architecture: Custom-trained YOLOv8n trained on the reorganized URPC2020 dataset.
 Target Classes: Marine organisms including holothurian (sea cucumber), echinus (sea urchin), starfish, and scallops.
 
@@ -62,7 +67,7 @@ Target Classes: Marine organisms including holothurian (sea cucumber), echinus (
 
 | Stage 1: Raw Input | Stage 2: UWCNN Enhanced | Stage 3: YOLOv8 Detection Output |
 | :---: | :---: | :---: |
-| <img src="input/000019.jpg" width="250"> | <img src="output/uwcnn_enhanced.jpg" width="250"> | <img src="output/yolo_results/pred/000019.jpg" width="250"> |
+| <img src="input/demo.jpg" width="250"> | <img src="output/uwcnn_enhanced.jpg" width="250"> | <img src="output/yolo_results/pred/demo.jpg" width="250"> |
 | *Original image with heavy green turbidity* | *Restored colors and enhanced contrast at native resolution* | *Accurate detection of Holothurian (0.59) and Starfish (0.69)* |
 
 ## Key Performance Advantages:
@@ -72,14 +77,14 @@ Target Classes: Marine organisms including holothurian (sea cucumber), echinus (
 
 **Improved Detection:** Pre-processing degraded images directly increases bounding box confidence scores and reduces false negatives compared to running detection on raw frames.
 
-##📂 Model Weights & Download
+## 📂 Model Weights & Download
 👉 **[Click Here to Download Model Weights](https://drive.google.com/drive/folders/1Y2IkD4FCaJkq0KuUHBH9s0gs2MV8FN9D?usp=drive_link)**
 
 ### 🚀 How to Run
 1.**Clone the repository:**
 ```bash
-git clone [https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPOSITORY_NAME.git)
-cd YOUR_REPOSITORY_NAME
+git clone [https://github.com/PranjalPdev/underwater-enhancement-detection.git](https://github.com/PranjalPdev/underwater-enhancement-detection.git)
+cd underwater-enhancement-detection
 ```
 2.**Install required dependencies:**
 ```bash
