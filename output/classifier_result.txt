@@ -1,3 +1,0 @@
-image=demo.jpg
-label=low_light
-class_index=1
