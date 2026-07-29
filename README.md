@@ -48,20 +48,26 @@ The primary objective of this project is to build an intelligent pre-processing 
 
 ### 🔬 Methodology
 1. **Stage 1: Quality Classification**
+   
 Architecture: Fine-tuned EfficientNet implemented in TensorFlow/Keras.
+
 Function: Analyzes raw underwater frames and categorizes them into low_light, turbid, or good.
 
-2. **Stage 2: Dynamic Image Enhancement**
+3. **Stage 2: Dynamic Image Enhancement**
+   
 Low-Light Routing (WaterNet): A 5-layer convolutional network optimized on the EUVP dataset to adjust exposure, lift shadow details, and increase contrast.
 
 Turbidity Routing (UWCNN): A 10-layer dense residual architecture trained on the UWCNN dataset to correct heavy green/blue color casts, remove haze, 
 and restore edge sharpness.
 
 Native Resolution Inference: Executed directly on full-resolution image tensors to eliminate downsampling artifacts.
+
 Clear Image Bypass: Images classified as good bypass enhancement to prevent unnecessary color distortion.
 
 4. **Stage 3: Marine Object Detection**
+   
 Architecture: Custom-trained YOLOv8n trained on the reorganized URPC2020 dataset.
+
 Target Classes: Marine organisms including holothurian (sea cucumber), echinus (sea urchin), starfish, and scallops.
 
 
@@ -69,7 +75,7 @@ Target Classes: Marine organisms including holothurian (sea cucumber), echinus (
 
 | Stage 1: Raw Input | Stage 2: UWCNN Enhanced | Stage 3: YOLOv8 Detection Output |
 | :---: | :---: | :---: |
-| <img src="input/demo.jpg" width="250"> | <img src="output/uwcnn_enhanced.jpg" width="250"> | <img src="output/yolo_results/pred/demo.jpg" width="250"> |
+| <img src="input/demo.jpg" width="250"> | <img src="output/uwcnn_enhanced.jpg" width="250"> | <img src="output/yolo_results/pred/selected_enhanced.jpg" width="250"> |
 | *Original image with heavy green turbidity* | *Restored colors and enhanced contrast at native resolution* | *Accurate detection of Holothurian (0.59) and Starfish (0.69)* |
 
 ## Key Performance Advantages:
