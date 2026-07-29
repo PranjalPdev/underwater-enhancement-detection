@@ -12,7 +12,7 @@ from ultralytics import YOLO
 # Paths & Configurations
 # ==========================================
 BASE = Path(r"C:\final")
-INPUT_IMAGE = BASE / "input" / "demo.jpg"  # Update filename if using demo.webp/demo.jpg
+INPUT_IMAGE = BASE / "input" / "demo.jpg"  
 OUTPUT_DIR = BASE / "output"
 MODELS_DIR = BASE / "model"
 
@@ -25,7 +25,7 @@ CLASS_INDICES_PATH = MODELS_DIR / "class_indices.json"
 # PyTorch Enhancement Checkpoints & YOLO
 WATERNET_WEIGHTS = MODELS_DIR / "waternet_best.pth"
 UWCNN_WEIGHTS = MODELS_DIR / "uwcnn_best.pth"
-YOLO_WEIGHTS = MODELS_DIR / "best.pt"  # Best weights from your trained YOLO model
+YOLO_WEIGHTS = MODELS_DIR / "best.pt" 
 
 CLASSIFIER_OUT = OUTPUT_DIR / "classifier_result.txt"
 WATERNET_OUT = OUTPUT_DIR / "waternet_enhanced.jpg"
@@ -108,7 +108,6 @@ def run_classifier():
 
     model = tf.keras.models.load_model(CLASSIFIER_WEIGHTS)
     
-    # Get expected input dimension from Keras model
     input_shape = model.input_shape[1:3]
     target_size = input_shape if None not in input_shape else (224, 224)
 
@@ -140,7 +139,6 @@ def run_enhancement_model(model_class, weights_path, out_path):
     """Executes PyTorch enhancement model on full native resolution image."""
     img = Image.open(INPUT_IMAGE).convert("RGB")
     
-    # Process image at full native resolution
     tensor_in = infer_tfm(img).unsqueeze(0).to(DEVICE)
 
     model = model_class().to(DEVICE)
@@ -154,7 +152,6 @@ def run_enhancement_model(model_class, weights_path, out_path):
     with torch.no_grad():
         enhanced_tensor = model(tensor_in)
 
-    # Convert back to uint8 PIL image
     enhanced_tensor = enhanced_tensor.squeeze(0).cpu().clamp(0, 1)
     enhanced_np = (enhanced_tensor.permute(1, 2, 0).numpy() * 255.0).astype("uint8")
     Image.fromarray(enhanced_np).save(out_path)
