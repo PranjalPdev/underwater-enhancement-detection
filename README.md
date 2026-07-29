@@ -40,9 +40,11 @@ Underwater vision systems face severe environmental degradation due to light att
 
 The primary objective of this project is to build an intelligent pre-processing and detection framework that:
 
-**>**Automatically identifies specific image degradation types (low_light, turbid, or clear good).
-**>**Dynamically applies targeted image restoration (WaterNet for exposure correction or UWCNN for color-cast dehazing) while preserving 100% native image resolution.
-**>**Feeds the restored frame into a custom YOLOv8 detector to significantly improve detection confidence for marine species (holothurian, echinus, starfish, and scallops).
+**>** Automatically identifies specific image degradation types (low_light, turbid, or clear good).
+
+**>** Dynamically applies targeted image restoration (WaterNet for exposure correction or UWCNN for color-cast dehazing) while preserving 100% native image resolution.
+
+**>** Feeds the restored frame into a custom YOLOv8 detector to significantly improve detection confidence for marine species (holothurian, echinus, starfish, and scallops).
 
 ### 🔬 Methodology
 1. **Stage 1: Quality Classification**
@@ -80,7 +82,7 @@ Target Classes: Marine organisms including holothurian (sea cucumber), echinus (
 ## 📂 Model Weights & Download
 👉 **[Click Here to Download Model Weights](https://drive.google.com/drive/folders/1Y2IkD4FCaJkq0KuUHBH9s0gs2MV8FN9D?usp=drive_link)**
 
-### 🚀 How to Run
+## 🚀 How to Run
 1.**Clone the repository:**
 ```bash
 git clone [https://github.com/PranjalPdev/underwater-enhancement-detection.git](https://github.com/PranjalPdev/underwater-enhancement-detection.git)
