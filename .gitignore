@@ -1,0 +1,7 @@
+# Ignore heavy weight files and outputs
+model/*.pth
+model/*.keras
+model/*.pt
+output/
+.venv/
+__pycache__/
