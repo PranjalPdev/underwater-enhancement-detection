@@ -1,0 +1,23 @@
+{
+    "class_indices": {
+        "good": 0,
+        "low_light": 1,
+        "turbid": 2
+    },
+    "idx_to_class": {
+        "0": "good",
+        "1": "low_light",
+        "2": "turbid"
+    },
+    "features": [
+        "laplacian_var",
+        "l_mean",
+        "l_std",
+        "a_mean",
+        "b_mean",
+        "saturation",
+        "contrast",
+        "dark_prior",
+        "attenuation_r"
+    ]
+}
